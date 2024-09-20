@@ -9,3 +9,6 @@ npx tsc --init
 
 # Add Dev Script in package.json file
 "dev": "nodemon server.ts"
+
+# Setup Eslint
+npm init @eslint/config@latest
