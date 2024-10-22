@@ -30,7 +30,11 @@ const createUser = asyncHandler(async (req: Request, res: Response) => {
   });
 
   // Response
-  res.json({ accessToken: token, message: "User created successfully" });
+  res.status(201).json({ accessToken: token, message: "User created successfully" });
 });
+
+// const loginUser = asyncHandler(async (req: Request, res: Response) => {
+//   res.json({ message: "ok" });
+// });
 
 export { createUser };
