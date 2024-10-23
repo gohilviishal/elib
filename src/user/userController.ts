@@ -30,11 +30,28 @@ const createUser = asyncHandler(async (req: Request, res: Response) => {
   });
 
   // Response
-  res.status(201).json({ accessToken: token, message: "User created successfully" });
+  res
+    .status(201)
+    .json({ accessToken: token, message: "User created successfully" });
 });
 
-// const loginUser = asyncHandler(async (req: Request, res: Response) => {
-//   res.json({ message: "ok" });
-// });
+const loginUser = asyncHandler(async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const user = await userModel.findOne({ email });
+  if (!user) {
+    throw createHttpError(401, "Email incorrect.");
+  }
 
-export { createUser };
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw createHttpError(401, "Password incorrect.");
+  }
+
+  const token = sign({ sub: user._id }, config.jwtSecret as string, {
+    expiresIn: "7d",
+  });
+
+  res.json({ accessToken: token });
+});
+
+export { createUser, loginUser };

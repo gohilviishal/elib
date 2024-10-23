@@ -18,4 +18,4 @@ export const userSchema = yup.object({
     .min(6, "Password must be at least 6 characters long"),
 });
 
-// export const loginSchema = userSchema.pick(["email", "password"]);
+export const loginSchema = userSchema.pick(["email", "password"]);
