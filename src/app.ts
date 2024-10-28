@@ -1,19 +1,14 @@
-import express from "express";
-import globalErrorHandler from "./middlewares/globalErrorHandler";
-import userRouter from "./user/userRouter";
+import { config } from "#config";
+import connectDB from "#loaders/database";
+import createApp from "#loaders/express";
 
-const app = express();
-app.use(express.json());
+const startServer = async () => {
+  const app = createApp();
+  await connectDB();
+  const port = config.port || 3000;
+  app.listen(port, () => {
+    console.log(`Listening on port: ${port}`);
+  });
+};
 
-// Routes
-// Http methods: GET, POST, PUT, PATCH, DELETE
-app.get("/", (_req, res) => {
-  res.json({ message: "Welcome to elib APIs" });
-});
-
-app.use("/api/users", userRouter);
-
-// Global error handler
-app.use(globalErrorHandler);
-
-export default app;
+startServer();

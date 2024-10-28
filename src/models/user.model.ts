@@ -1,5 +1,5 @@
+import { IUser } from "#types/auth";
 import mongoose from "mongoose";
-import { IUser } from "./userTypes";
 
 const user = new mongoose.Schema<IUser>(
   {
@@ -20,5 +20,6 @@ const user = new mongoose.Schema<IUser>(
   { timestamps: true }
 );
 
+const User = mongoose.model<IUser>("User", user);
 //users
-export default mongoose.model<IUser>("User", user);
+export default User;

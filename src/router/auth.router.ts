@@ -1,8 +1,7 @@
+import { createUser, loginUser } from "#controllers/auth.controller";
+import { validate } from "#middlewares/validationHandler";
+import { loginSchema, userSchema } from "#validators/auth.validator";
 import express from "express";
-import { createUser, loginUser } from "./userController";
-import { validate } from "../middlewares/validationHandler";
-import { loginSchema, userSchema } from "./userSchema";
-
 const userRouter = express.Router();
 
 //Routes
